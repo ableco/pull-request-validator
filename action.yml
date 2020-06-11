@@ -1,0 +1,29 @@
+name: "Pull Request Checker"
+description: "Checks if a pull request is doing too many changes at the same time"
+inputs:
+  max_lines_per_pull_request:
+    description: "Max amount of LOC permitted by one pull request"
+    required: true
+    default: "10"
+  label_name:
+    description: "Label that will be added to the Pull Request if it exceed the maximum amount of LOC"
+    required: true
+    default: "large-pull-request"
+  strict_mode:
+    description: "Make the test fail if a Pull Request Exceed the maximum amount of LOC"
+    required: true
+    default: false
+  warning_message:
+    description: "Message the bot will add to the PR in case a PR exceed the maximum LOC permitted."
+    required: true
+    default: "Hey :wave: :face_with_head_bandage: . What do you think if we break this awesome PR into smaller pieces, please? :pray: ."
+  congrat_message:
+    description: "Message the bot will add to the PR when a LOC exceed is fixed"
+    required: true
+    default: "Awesome. :raised_hands: . We are ready with this rule. Let's keep going :muscle:"
+runs:
+  using: "node12"
+  main: "index.js"
+branding:
+  icon: "alert-triangle"
+  color: "blue"

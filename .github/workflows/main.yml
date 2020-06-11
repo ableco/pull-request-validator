@@ -1,0 +1,20 @@
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: Pull Request Checker
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run
+        uses: ./
+        with:
+          label_name: "size/XXG"
+          max_lines_per_pull_request: 5
+          strict_mode: false
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
