@@ -109,4 +109,14 @@ async function processPullRequestWithoutErrors(alreadyLabeled) {
   }
 }
 
+function test() {
+  console.log("Useless comment");
+  console.log("Useless comment");
+  console.log("Useless comment");
+  console.log("Useless comment");
+  console.log("Useless comment");
+  console.log("Useless comment");
+  console.log("Useless comment");
+}
+
 main();
