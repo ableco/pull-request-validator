@@ -2,10 +2,12 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 
 const LABEL_NAME = core.getInput("label_name");
+const LABEL_COLOR = core.getInput("label_color");
 const MAX_LINES = parseInt(core.getInput("max_lines_per_pull_request"));
 const WARNING_MESSAGE = core.getInput("warning_message");
 const CONGRAT_MESSAGE = core.getInput("congrat_message");
 const STRICT_MODE = core.getInput("strict_mode") === "true";
+const COMMENTS_ENABLED = core.getInput("enable_comments") === "true";
 
 const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
 const context = github.context;
@@ -49,7 +51,7 @@ async function ensureLabelExists() {
         owner,
         repo,
         name: LABEL_NAME,
-        color: "120887",
+        color: LABEL_COLOR,
         description:
           "[Warning Label] for use when a Pull Request is doing to many changes at the same time.",
       });
@@ -76,12 +78,13 @@ async function processPullRequestWithErrors(alreadyLabeled) {
       labels: [LABEL_NAME],
     });
 
-    await octokit.issues.createComment({
-      owner,
-      repo,
-      issue_number: number,
-      body: WARNING_MESSAGE,
-    });
+    COMMENTS_ENABLED &&
+      (await octokit.issues.createComment({
+        owner,
+        repo,
+        issue_number: number,
+        body: WARNING_MESSAGE,
+      }));
   }
 
   STRICT_MODE && core.setFailed("Max amount of LOC excedeed.");
@@ -96,12 +99,13 @@ async function processPullRequestWithoutErrors(alreadyLabeled) {
       name: LABEL_NAME,
     });
 
-    await octokit.issues.createComment({
-      owner,
-      repo,
-      issue_number: number,
-      body: CONGRAT_MESSAGE,
-    });
+    COMMENTS_ENABLED &&
+      (await octokit.issues.createComment({
+        owner,
+        repo,
+        issue_number: number,
+        body: CONGRAT_MESSAGE,
+      }));
   }
 }
 

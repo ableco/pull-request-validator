@@ -9,6 +9,10 @@ inputs:
     description: "Label that will be added to the Pull Request if it exceed the maximum amount of LOC"
     required: true
     default: "large-pull-request"
+  label_color:
+    description: "Color of the label that will be added to the PR"
+    required: true
+    default: "120887"
   strict_mode:
     description: "Make the test fail if a Pull Request Exceed the maximum amount of LOC"
     required: true
@@ -21,6 +25,11 @@ inputs:
     description: "Message the bot will add to the PR when a LOC exceed is fixed"
     required: true
     default: "Awesome. :raised_hands: . We are ready with this rule. Let's keep going :muscle:"
+  enable_comments:
+    description: "Enable this action to make comments in the PR"
+    required: true
+    default: true
+
 runs:
   using: "node12"
   main: "index.js"
