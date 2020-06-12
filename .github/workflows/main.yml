@@ -6,7 +6,7 @@ on:
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
-    name: Pull Request Checker
+    name: Pull Request Validator
     steps:
       - name: Checkout
         uses: actions/checkout@v2

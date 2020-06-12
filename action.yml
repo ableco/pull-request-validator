@@ -1,4 +1,4 @@
-name: "Pull Request Checker"
+name: "Pull Request Validator"
 description: "Checks if a pull request is doing too many changes at the same time"
 inputs:
   max_lines_per_pull_request:
